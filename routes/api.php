@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use App\Http\Controllers\EmpregoController;
+use App\Http\Controllers\EmpresaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +14,5 @@ use App\Http\Controllers\EmpregoController;
 |
 */
 
-Route::get('/emprego/{id?}', [EmpregoController::class, 'consultar'])->where('id', '[0-9]+');
-Route::post('/emprego/cadastro', [EmpregoController::class, 'cadastrar']);
+Route::get('/empresa/{id?}', [EmpresaController::class, 'consultar'])->where('id', '[0-9]+');
+Route::post('/empresa/cadastro', [EmpresaController::class, 'cadastrar']);

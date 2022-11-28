@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Emprego;
+use App\Models\Empresa;
 use BrasilApi;
 
-class EmpregoController extends Controller
+class EmpresaController extends Controller
 {
     public function consultar($id = null)
     {
         try {
             if (empty($id)) {
-                $emprego = DB::table('empregos')->get();
+                $empresa = DB::table('empresas')->get();
             } else {
-                $emprego = DB::table('empregos')->where('id', $id)->get();
+                $empresa = DB::table('empresas')->where('id', $id)->get();
             }
 
-            if (count($emprego) > 0) {
-                return response($emprego, 200);
+            if (count($empresa) > 0) {
+                return response($empresa, 200);
             } else {
                 return response(['mensagem' => 'Empresa não encontrada!'], 404);
             }
@@ -35,10 +35,10 @@ class EmpregoController extends Controller
     {
         if ($request->has(['nome', 'cep', 'numero']) && $request->filled(['nome', 'cep', 'numero'])) {
             try {
-                $emprego = DB::table('empregos')->where('nome', $request->input('nome'))->get();
+                $empresa = DB::table('empresas')->where('nome', $request->input('nome'))->get();
                 
-                if (count($emprego) < 1) {
-                    $emprego = new Emprego;
+                if (count($empresa) < 1) {
+                    $empresa = new Empresa;
 
                     $complemento = NULL;
     
@@ -46,19 +46,19 @@ class EmpregoController extends Controller
                         $complemento = $request->input('complemento');
                     }
     
-                    $emprego->nome = $request->input('nome');
+                    $empresa->nome = $request->input('nome');
     
                     $endereco = BrasilApi::cep($request->input('cep'));
     
-                    $emprego->cep = $endereco['cep'];
-                    $emprego->endereco = $endereco['street'];
-                    $emprego->numero = $request->input('numero');
-                    $emprego->complemento = $complemento;
-                    $emprego->bairro = $endereco['neighborhood'];
-                    $emprego->cidade = $endereco['city'];
-                    $emprego->uf = $endereco['state'];
+                    $empresa->cep = $endereco['cep'];
+                    $empresa->endereco = $endereco['street'];
+                    $empresa->numero = $request->input('numero');
+                    $empresa->complemento = $complemento;
+                    $empresa->bairro = $endereco['neighborhood'];
+                    $empresa->cidade = $endereco['city'];
+                    $empresa->uf = $endereco['state'];
     
-                    if ($emprego->save()) {
+                    if ($empresa->save()) {
                         return response(['mensagem' => 'Cadastro realizado com sucesso!'], 201);
                     } else {
                         return response(['mensagem' => 'Não foi possível realizar cadastro!'], 400);
