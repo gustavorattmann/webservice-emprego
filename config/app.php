@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Webservice Emprego'),
+    'name' => env('APP_NAME', 'Webservice Empresa'),
 
     /*
     |--------------------------------------------------------------------------

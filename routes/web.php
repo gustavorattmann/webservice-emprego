@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmpregoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +13,6 @@ use App\Http\Controllers\EmpregoController;
 |
 */
 
-Route::get('/emprego', [EmpregoController::class, 'consultar']);
+Route::get('/', function () {
+    return view('welcome');
+});
